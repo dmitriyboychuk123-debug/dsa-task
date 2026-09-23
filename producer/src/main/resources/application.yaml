@@ -1,0 +1,29 @@
+app:
+  generator:
+    mean: 50.0
+    standard-deviation: 5.0
+    anomaly-probability: 0.01
+    anomaly-min-sigma: 6.0
+    anomaly-max-sigma: 10.0
+  features:
+    mock-data-generator:
+      enabled: false
+      add-anomaly-value: true
+
+sqs:
+  queues:
+    remote-telemetry:
+      name: remote-telemetry.fifo
+
+spring:
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+      credentials:
+        access-key: ${AWS_ACCESS_KEY_ID:test}
+        secret-key: ${AWS_SECRET_ACCESS_KEY:test}
+      sqs:
+        queue-factory:
+          auto-create-queue: true
+        endpoint: http://localstack:4566
