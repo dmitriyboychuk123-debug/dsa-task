@@ -1,0 +1,27 @@
+app:
+  anomaly-detection:
+    z-score-threshold: 3
+    minimum-window-elements: 50
+    maximum-window-elements: 100
+    maximum-consecutive-anomalies-allowed: 10
+
+sqs:
+  queues:
+    remote-telemetry:
+      name: remote-telemetry.fifo
+spring:
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+      credentials:
+        access-key: ${AWS_ACCESS_KEY_ID:test}
+        secret-key: ${AWS_SECRET_ACCESS_KEY:test}
+      sqs:
+        queue-factory:
+          auto-create-queue: true
+        endpoint: http://localstack:4566
+
+logging:
+  pattern:
+    console: "%msg%n"
