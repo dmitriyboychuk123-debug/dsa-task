@@ -33,10 +33,9 @@ producer-service --(double as text)--> SQS FIFO queue (LocalStack) --> consumer-
 
 ## How to run
 
-1. Build and run `docker compose up --build -d` or `./buildAndRun.sh`
+1. Build and run `docker compose up -d` or `./run.sh`.
 2. Observe anomaly detection in real time `docker compose logs -f consumer-service` or `./consumerMonitoring.sh`
-3. Stop the execution `docker compose down`
-4. Rerun without build `./run.sh`
+3. Stop the execution `docker compose down -v` (`-v` also removes LocalStack's anonymous volume)
 
 Sample output:
 
@@ -51,8 +50,8 @@ Run `./gradlew test`. Docker must be running, as integration tests start LocalSt
 
 ## Configuration
 
-The configuration lives in `application.yaml` files, so after changing them the images must be rebuilt using
-`./buildAndRun.sh` script. Alternatively, any property can be overridden without rebuild using environment
+The configuration lives in `application.yaml` files packaged into the images; changes are picked up by the next
+`docker compose up`, which rebuilds them. Alternatively, any property can be overridden without rebuild using environment
 variables in [docker-compose.yaml](docker-compose.yaml) (Spring relaxed binding), e.g.
 `APP_ANOMALYDETECTION_ZSCORETHRESHOLD=4` for the consumer or `APP_GENERATOR_ANOMALYPROBABILITY=0.05` for the producer.
 

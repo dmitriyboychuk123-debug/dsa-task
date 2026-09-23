@@ -1,5 +1,5 @@
 #!/bin/sh
-# Start the stack. Images are built only if missing; use buildAndRun.sh to rebuild after code changes.
+# Build (cached when nothing changed) and start the stack; compose rebuilds images on every up via pull_policy: build.
 set -eu
 cd "$(dirname "$0")"
 

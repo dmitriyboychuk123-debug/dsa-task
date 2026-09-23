@@ -22,6 +22,7 @@ services:
       context: .
       dockerfile: producer/Dockerfile
     image: producer-service:latest
+    pull_policy: build
     depends_on:
       localstack:
         condition: service_healthy
@@ -31,6 +32,7 @@ services:
       context: .
       dockerfile: consumer/Dockerfile
     image: consumer-service:latest
+    pull_policy: build
     depends_on:
       localstack:
         condition: service_healthy
